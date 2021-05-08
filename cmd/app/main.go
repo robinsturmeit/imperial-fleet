@@ -34,9 +34,8 @@ import (
 
 	"github.com/rs/cors"
 
-	"github.com/jtbonhomme/go-rest-api-boilerplate/db"
-	model "github.com/jtbonhomme/go-rest-api-boilerplate/models"
-	"github.com/jtbonhomme/go-rest-api-boilerplate/router"
+	"github.com/robinsturmeit/imperial-fleet/db"
+	"github.com/robinsturmeit/imperial-fleet/router"
 )
 
 // setupGlobalMiddleware will setup CORS
@@ -47,10 +46,11 @@ func setupGlobalMiddleware(handler http.Handler) http.Handler {
 
 // our main function
 func main() {
-	// populate our test database
-	db.Insert(model.Person{ID: "1", Firstname: "John", Lastname: "Doe", Address: &model.Address{City: "City X", State: "State X"}})
-	db.Insert(model.Person{ID: "2", Firstname: "Koko", Lastname: "Doe", Address: &model.Address{City: "City Z", State: "State Y"}})
-	db.Insert(model.Person{ID: "3", Firstname: "Francis", Lastname: "Sunday"})
+	// Connect to Imperial database…
+	err := db.InitDBConnector()
+	if err != nil {
+		log.Fatalf("%s", err)
+	}
 
 	// create router and start listen on port 8000
 	router := router.NewRouter()

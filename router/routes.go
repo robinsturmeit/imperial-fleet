@@ -3,7 +3,7 @@ package router
 import (
 	"net/http"
 
-	handler "github.com/jtbonhomme/go-rest-api-boilerplate/handlers"
+	handler "github.com/robinsturmeit/imperial-fleet/handlers"
 )
 
 // Route type description
@@ -19,15 +19,15 @@ type Routes []Route
 
 var routes = Routes{
 	Route{
-		"GetPeople",
+		"GetSpacecrafts",
 		"GET",
-		"/people",
-		handler.GetPeople,
+		"/spacecrafts",
+		handler.GetSpacecrafts,
 	},
 	Route{
-		"GetPerson",
+		"GetSpacecraftByProp",
 		"GET",
-		"/people/{id}",
-		handler.GetPerson,
+		"/spacecraft/{prop}/{value}",
+		handler.GetSpacecraftByProp,
 	},
 }
